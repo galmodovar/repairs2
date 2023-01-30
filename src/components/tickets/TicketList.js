@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import "./TicketList.css"
 
 export const TicketList = () => {
     const [tickets, setTickets] = useState([])
     const [filteredTickets, setFilteredTickets] = useState([])
     const [emergency, setEmergency] = useState(false)
+    const navigate = useNavigate()
+
+
     const localHoneyUser = localStorage.getItem('honey_user')
     const honeyUserObject = JSON.parse(localHoneyUser)
 
@@ -48,19 +52,18 @@ export const TicketList = () => {
         honeyUserObject.staff ? <> 
         <button
             onClick={
-                () => {
-                    setEmergency(true)
-                }
-            }>Emergency Only
+                () => {setEmergency(true)}
+            }> Emergency Only
         </button>
+
         <button
         onClick={
-            () => {
-                setEmergency(false)
-            }
-        }>Show All
+            () => {setEmergency(false)}
+        }> Show All
     </button></>
-         : ""
+         : <button 
+         onClick={() => navigate("/ticket/create")
+        }> Create Ticket</button>
     }
     <h2>List of Tickets</h2>
 
