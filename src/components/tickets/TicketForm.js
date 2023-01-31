@@ -2,21 +2,14 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export const TicketForm = () => {
-    /*
-        TODO: Add the correct default properties to the
-        initial state object
-    */
     const [ticket, update] = useState({
         description: "",
         emergency: false
     })
-    /*
-        TODO: Use the useNavigation() hook so you can redirect
-        the user to the ticket list
-    */
-   const navigate = useNavigate()
-   const localHoneyUser = localStorage.getItem("honey_user")
-   const honeyUserObject = JSON.parse(localHoneyUser)
+   
+    const navigate = useNavigate()
+    const localHoneyUser = localStorage.getItem("honey_user")
+    const honeyUserObject = JSON.parse(localHoneyUser)
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
@@ -37,13 +30,7 @@ export const TicketForm = () => {
             .then(res => res.json())
             .then(() => {
                 navigate("/tickets")
-        })
-
-
-        // TODO: Create the object to be saved to the API
-
-
-        // TODO: Perform the fetch() to POST the object to the API
+            })
     }
 
     return (
@@ -60,7 +47,7 @@ export const TicketForm = () => {
                         value={ticket.description}
                         onChange={
                             (e) => {
-                                const copy = {...ticket}
+                                const copy = { ...ticket }
                                 copy.description = e.target.value
                                 update(copy)
                             }
@@ -74,7 +61,7 @@ export const TicketForm = () => {
                         value={ticket.emergency}
                         onChange={
                             (e) => {
-                                const copy =  {...ticket}
+                                const copy = { ...ticket }
                                 copy.emergency = e.target.checked
                                 update(copy)
                             }
@@ -82,7 +69,7 @@ export const TicketForm = () => {
                 </div>
             </fieldset>
             <button
-                onClick={(e) => handleSaveButtonClick(e)} 
+                onClick={(e) => handleSaveButtonClick(e)}
                 className="btn btn-primary">
                 Submit Ticket
             </button>
