@@ -13,17 +13,13 @@ export const TicketList = ({ searchState }) => {
   const honeyUserObject = JSON.parse(localHoneyUser);
 
   useEffect(() => {
-    const searchTickets = tickets.filter((ticket) =>
-      ticket.description.startsWith(searchState)
-    );
+    const searchTickets = tickets.filter( (ticket) => ticket.description.includes(searchState) );
     setFilteredTickets(searchTickets);
   }, [searchState]);
 
   useEffect(() => {
     if (emergency) {
-      const emergencyTickets = tickets.filter(
-        (ticket) => ticket.emergency === true
-      );
+      const emergencyTickets = tickets.filter( (ticket) => ticket.emergency === true );
       setFilteredTickets(emergencyTickets);
     } else {
       setFilteredTickets(tickets);
@@ -45,25 +41,17 @@ export const TicketList = ({ searchState }) => {
     if (honeyUserObject.staff) {
       setFilteredTickets(tickets);
     } else {
-      const myTickets = tickets.filter(
-        (ticket) => ticket.userId === honeyUserObject.id
-      );
+      const myTickets = tickets.filter( (ticket) => ticket.userId === honeyUserObject.id );
       setFilteredTickets(myTickets);
     }
   }, [tickets]);
 //OPEN
   useEffect(() => {
     if (openOnly) {
-      const openTicketArr = tickets.filter((ticket) => {
-        return (
-          ticket.userId === honeyUserObject.id && ticket.dateCompleted === ""
-        );
-      });
+      const openTicketArr = tickets.filter((ticket) => ticket.userId === honeyUserObject.id && ticket.dateCompleted === "");
       setFilteredTickets(openTicketArr);
     } else {
-      const myTickets = tickets.filter(
-        (ticket) => ticket.userId === honeyUserObject.id
-      );
+      const myTickets = tickets.filter( (ticket) => ticket.userId === honeyUserObject.id );
       setFilteredTickets(myTickets);
     }
   }, [openOnly]);
@@ -73,7 +61,9 @@ export const TicketList = ({ searchState }) => {
       {honeyUserObject.staff ? (
         <>
           <button onClick={() => { setEmergency(true); }}> Emergency Only </button>
-          <button onClick={() => { setEmergency(false); }}> Show All </button>
+          <button onClick={() => { setEmergency(false); }}>
+Show All{" "}
+          </button>
         </>
       ) : (
         <>
