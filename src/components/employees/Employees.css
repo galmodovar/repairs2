@@ -1,0 +1,14 @@
+.employees {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.employee {
+    background-color: darkgreen;
+    border: 2px dotted lightgreen ;
+    color: black;
+    padding: 0.5rem;
+    margin: 0.5rem;
+
+}
