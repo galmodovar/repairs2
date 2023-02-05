@@ -13,13 +13,13 @@ export const TicketList = ({ searchState }) => {
   const honeyUserObject = JSON.parse(localHoneyUser);
 
   useEffect(() => {
-    const searchTickets = tickets.filter( (ticket) => ticket.description.includes(searchState) );
+    const searchTickets = tickets.filter((ticket) => ticket.description.includes(searchState));
     setFilteredTickets(searchTickets);
   }, [searchState]);
 
   useEffect(() => {
     if (emergency) {
-      const emergencyTickets = tickets.filter( (ticket) => ticket.emergency === true );
+      const emergencyTickets = tickets.filter((ticket) => ticket.emergency === true);
       setFilteredTickets(emergencyTickets);
     } else {
       setFilteredTickets(tickets);
@@ -41,7 +41,7 @@ export const TicketList = ({ searchState }) => {
     if (honeyUserObject.staff) {
       setFilteredTickets(tickets);
     } else {
-      const myTickets = tickets.filter( (ticket) => ticket.userId === honeyUserObject.id );
+      const myTickets = tickets.filter((ticket) => ticket.userId === honeyUserObject.id);
       setFilteredTickets(myTickets);
     }
   }, [tickets]);
