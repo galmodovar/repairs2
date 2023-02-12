@@ -1,5 +1,6 @@
 import { useState, useEffect} from "react"
 import { useParams } from "react-router-dom"
+import "./Employees.css"
 
 
 export const EmployeeDetails = () => {
@@ -19,9 +20,11 @@ export const EmployeeDetails = () => {
         )
     
     return <section className="employee" key={`employee--${employeeId}`}>
-            <div>Name: {employee.user.fullName}</div>
-            <div>Email: </div>
-            <div>id: {employee.userId}</div>
+            <header className="employee__header">Name: {employee?.user?.fullName}</header>
+            <div>Email: {employee?.user?.email} </div>
+            <div>Rate: {employee?.rate}</div>
+            <div>Specialty: {employee?.specialty}</div>
+            <footer className="employee__footer">Currently working on {employee.employeeTickets.length} tickets</footer>
           </section>
 
 }
