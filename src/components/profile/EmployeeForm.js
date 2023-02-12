@@ -1,14 +1,38 @@
 import { useEffect, useState } from "react"
 
 export const EmployeeForm = () => {
-    // TODO: Provide initial state for profile
+    const localHoneyUser = localStorage.getItem('honey_user')
+    const honeyUserObject = JSON.parse(localHoneyUser)
+    
+    const [profile, setProfile] = useState({
+        specialty: "",
+        rate: 0,
+        userId: 0,
+    })
+    useEffect(() => {
+        fetch(`http://localhost:8088/employees?userId=${honeyUserObject.id}`)
+        .then(res => res.json())
+        .then((data) => {
+            const empObj = data[0]
+            setProfile(empObj)
 
+        })
+    }, [])
 
-    // TODO: Get employee profile info from API and update state
+    const handleSaveButtonClick = (evt) => {
+        evt.preventDefault()
 
+        fetch(`http://localhost:8088/employees/${profile.id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(profile)
+        })
+        .then(res => res.json())
+        .then(() => {
 
-    const handleSaveButtonClick = () => {
-       // event.preventDefault()
+        })
 
         /*
             TODO: Perform the PUT fetch() call here to update the profile.
@@ -26,10 +50,12 @@ export const EmployeeForm = () => {
                         required autoFocus
                         type="text"
                         className="form-control"
-                        //value={profile.specialty}
+                        value={profile.specialty}
                         onChange={
                             (evt) => {
-                                // TODO: Update specialty property
+                                const copy = {...profile}
+                                copy.specialty = evt.target.value
+                                setProfile(copy)
                             }
                         } />
                 </div>
@@ -39,16 +65,18 @@ export const EmployeeForm = () => {
                     <label htmlFor="name">Hourly rate:</label>
                     <input type="number"
                         className="form-control"
-                        //value={profile.rate}
+                        value={profile.rate}
                         onChange={
                             (evt) => {
-                                // TODO: Update rate property
+                                const copy = {...profile}
+                                copy.rate = parseFloat(evt.target.value, 2)
+                                setProfile(copy)
                             }
                         } />
                 </div>
             </fieldset>
             <button
-                onClick={""}
+                onClick={(clickEvt) => handleSaveButtonClick(clickEvt)}
                 className="btn btn-primary">
                 Save Profile
             </button>
