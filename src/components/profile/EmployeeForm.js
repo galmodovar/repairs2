@@ -9,6 +9,16 @@ export const EmployeeForm = () => {
         rate: 0,
         userId: 0,
     })
+
+    const [feedback, setFeedback] = useState("")
+    
+    useEffect(() => {
+        if (feedback !== "") {
+            // Clear feedback to make entire element disappear after 3 seconds
+            setTimeout(() => setFeedback(""), 3000);
+        }
+    }, [feedback])
+    
     useEffect(() => {
         fetch(`http://localhost:8088/employees?userId=${honeyUserObject.id}`)
         .then(res => res.json())
@@ -31,6 +41,7 @@ export const EmployeeForm = () => {
         })
         .then(res => res.json())
         .then(() => {
+            setFeedback("Employee profile saved")
 
         })
 
@@ -40,7 +51,10 @@ export const EmployeeForm = () => {
         */
     }
 
-    return (
+    return ( <>
+        <div className={`${feedback.includes("Error") ? "error" : "feedback"} ${feedback === "" ? "invisible" : "visible"}`}>
+    {feedback}
+    </div>
         <form className="profile">
             <h2 className="profile__title">New Service Ticket</h2>
             <fieldset>
@@ -81,5 +95,6 @@ export const EmployeeForm = () => {
                 Save Profile
             </button>
         </form>
+        </>
     )
 }
