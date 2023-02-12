@@ -24,7 +24,7 @@ export const EmployeeDetails = () => {
             <div>Email: {employee?.user?.email} </div>
             <div>Rate: {employee?.rate}</div>
             <div>Specialty: {employee?.specialty}</div>
-            <footer className="employee__footer">Currently working on {employee.employeeTickets.length} tickets</footer>
+            <footer className="employee__footer">Currently working on {employee?.employeeTickets.length} tickets</footer>
           </section>
 
 }
