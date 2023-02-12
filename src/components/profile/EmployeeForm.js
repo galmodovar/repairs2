@@ -4,13 +4,13 @@ export const EmployeeForm = () => {
     const localHoneyUser = localStorage.getItem('honey_user')
     const honeyUserObject = JSON.parse(localHoneyUser)
     
+    const [feedback, setFeedback] = useState("")
     const [profile, setProfile] = useState({
         specialty: "",
         rate: 0,
         userId: 0,
     })
 
-    const [feedback, setFeedback] = useState("")
     
     useEffect(() => {
         if (feedback !== "") {
@@ -42,13 +42,7 @@ export const EmployeeForm = () => {
         .then(res => res.json())
         .then(() => {
             setFeedback("Employee profile saved")
-
         })
-
-        /*
-            TODO: Perform the PUT fetch() call here to update the profile.
-            Navigate user to home page when done.
-        */
     }
 
     return ( <>
